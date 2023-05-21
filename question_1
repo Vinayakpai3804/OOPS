@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+typedef struct {
+    float balance;
+} BankAccount;
+
+void initAccount(BankAccount* account, float initial_balance) {
+    account->balance = initial_balance;
+}
+
+void deposit(BankAccount* account, float amount) {
+    account->balance += amount;
+}
+
+void withdraw(BankAccount* account, float amount) {
+    if (amount <= account->balance) {
+        account->balance -= amount;
+    } else {
+        printf("Error: Insufficient funds.\n");
+    }
+}
+
+float checkBalance(BankAccount* account) {
+    return account->balance;
+}
+
+int main() {
+    BankAccount account;
+    initAccount(&account, 0);  // Create a bank account with initial balance 0
+
+    printf("Account Balance: %.2f\n", checkBalance(&account));  // Expected: 0.00
+
+    deposit(&account, 1000);  // Deposit $1000
+    printf("Account Balance: %.2f\n", checkBalance(&account));  // Expected: 1000.00
+
+    withdraw(&account, 500);  // Withdraw $500
+    printf("Account Balance: %.2f\n", checkBalance(&account));  // Expected: 500.00
+
+    withdraw(&account, 1500);  // Withdraw $1500 (more than the balance)
+    // Expected: Error message indicating insufficient funds.
+
+    return 0;
+}
