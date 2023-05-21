@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_SIZE = 100;
+
+class Stack {
+private:
+    int stack[MAX_SIZE];
+    int top;
+
+public:
+    Stack() {
+        top = -1;
+    }
+
+    bool isEmpty() {
+        return (top == -1);
+    }
+
+    bool isFull() {
+        return (top == MAX_SIZE - 1);
+    }
+
+    void push(int element) {
+        if (isFull()) {
+            cout << "Error: Stack is full. Cannot push element." << endl;
+            return;
+        }
+
+        top++;
+        stack[top] = element;
+        cout << "Pushed element: " << element << endl;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            cout << "Error: Stack is empty. Cannot pop element." << endl;
+            return -1;  // Return a special value to indicate an error
+        }
+
+        int element = stack[top];
+        top--;
+        return element;
+    }
+};
+
+int main() {
+    Stack stack;
+
+    int choice, element;
+    while (true) {
+        cout << "\nStack Operations:" << endl;
+        cout << "1. Push" << endl;
+        cout << "2. Pop" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter element to push: ";
+                cin >> element;
+                stack.push(element);
+                break;
+            case 2:
+                element = stack.pop();
+                if (element != -1)
+                    cout << "Popped element: " << element << endl;
+                break;
+            case 3:
+                exit(0);
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+
+    return 0;
+}
